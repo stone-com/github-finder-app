@@ -22,7 +22,6 @@ export const GithubProvider = ({ children }) => {
   // get Search results
   const searchUsers = async (text) => {
     setLoading();
-
     // use URLSearchParams to create a query string for the api
     const params = new URLSearchParams({
       q: text,
@@ -41,9 +40,15 @@ export const GithubProvider = ({ children }) => {
       payload: items,
     });
   };
+
+  // clear Users state
+  const clearUsers = () => {
+    dispatch({ type: 'CLEAR_USERS' });
+  };
+
   return (
     <GithubContext.Provider
-      value={{ users: state.users, loading: state.loading, searchUsers }}
+      value={{ users: state.users, loading: state.loading, searchUsers, clearUsers }}
     >
       {children}
     </GithubContext.Provider>
