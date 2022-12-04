@@ -1,15 +1,17 @@
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa';
 import { useContext, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import RepoList from '../components/repos/RepoList';
 import Spinner from '../components/layout/Spinner';
 import GithubContext from '../context/github/GithubContext';
 
 const User = () => {
-  const { user, getUser, loading } = useContext(GithubContext);
+  const { user, getUser, loading, getUserRepos, repos } =
+    useContext(GithubContext);
   const params = useParams();
   useEffect(() => {
     getUser(params.login);
-    // getUserRepos(params.login);
+    getUserRepos(params.login);
   }, []);
 
   //  Destructure user object to get specific items
@@ -151,6 +153,8 @@ const User = () => {
             </div>
           </div>
         </div>
+        {/* Render RepoList component, pass in repos state as prop */}
+        <RepoList repos={repos} />
       </div>
     </>
   );
