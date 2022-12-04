@@ -113,6 +113,44 @@ const User = () => {
             </div>
           </div>
         </div>
+        <div className='w-full py-5 mb-6 rounded-lg shadow-md bg-base-100 stats'>
+          <div className='stat'>
+            <div className='stat-figure text-secondary'>
+              <FaUsers className='text-3xl md:text-5xl' />
+            </div>
+            <div className='pr-5 stat-title'>Followers</div>
+            <div className='pr-5 text-3xl stat-value md:text-4xl'>
+              {followers}
+            </div>
+          </div>
+          <div className='stat'>
+            <div className='stat-figure text-secondary'>
+              <FaUserFriends className='text-3xl md:text-5xl' />
+            </div>
+            <div className='pr-5 stat-title'>Following</div>
+            <div className='pr-5 text-3xl stat-value md:text-4xl'>
+              {following}
+            </div>
+          </div>
+          <div className='stat'>
+            <div className='stat-figure text-secondary'>
+              <FaCodepen className='text-3xl md:text-5xl' />
+            </div>
+            <div className='pr-5 stat-title'>Public Repos</div>
+            <div className='pr-5 text-3xl stat-value md:text-4xl'>
+              {public_repos}
+            </div>
+          </div>
+          <div className='stat'>
+            <div className='stat-figure text-secondary'>
+              <FaStore className='text-3xl md:text-5xl' />
+            </div>
+            <div className='pr-5 stat-title'>Public Gists</div>
+            <div className='pr-5 text-3xl stat-value md:text-4xl'>
+              {public_gists}
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
