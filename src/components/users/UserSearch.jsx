@@ -1,27 +1,29 @@
 import { useState, useContext } from 'react';
 import GithubContext from '../../context/github/GithubContext';
 import AlertContext from '../../context/alert/AlertContext';
+import { searchUsers } from '../../context/github/GithubActions';
 
 const UserSearch = () => {
   const [text, setText] = useState('');
 
-  const { users, searchUsers, clearUsers } = useContext(GithubContext);
+  const { dispatch, users, clearUsers } = useContext(GithubContext);
   const { setAlert } = useContext(AlertContext);
 
   const handleChange = (e) => setText(e.target.value);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (text === '') {
       setAlert('Please enter something!', 'error');
     } else {
-      searchUsers(text);
-      setText('');
+      const users = await searchUsers(text);
+      dispatch({ type: 'SET_LOADING' });
+      dispatch({ type: 'GET_USERS', payload: users });
     }
   };
 
   return (
-    <div className='grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 mb-8 gap-8'>
+    <div className='grid grid-cols-1 gap-8 mb-8 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2'>
       <div>
         <form onSubmit={handleSubmit}>
           <div className='form-control'>
@@ -31,7 +33,7 @@ const UserSearch = () => {
                 onChange={handleChange}
                 placeholder='search'
                 type='text'
-                className='w-full pr-40 bg-gray-200 input input-lg text-black'
+                className='w-full pr-40 text-black bg-gray-200 input input-lg'
               />
               <button
                 type='submit'
